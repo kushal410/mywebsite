@@ -1,2 +1,2 @@
 # mywebsite
-My Website
+URL: www.kushaln.com.np
