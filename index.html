@@ -1,6 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const form = document.querySelector("form");
+    form.addEventListener("submit", function(e) {
+      e.preventDefault(); // prevent real submission
+      alert("Thank you! Your form has been submitted.");
+      form.reset(); // optionally clear the form
+    });
+  });
+</script>
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -440,7 +451,7 @@ Learn php with this course. Encroll now with 5o percent discount. That is for li
   <br><input type="button" value="Encroll">
 </div></a>
 <a href="#"><div class="gallery3"><img src="photo/jive.png" alt="">
-  <br>Learn jive with this course. Encroll now with 5o percent discount. That is for limited time only so hurry up guyzs. $<del>100</del> <ins>$50</ins>
+  <br>Learn VIP with this course. Encroll now with 5o percent discount. That is for limited time only so hurry up guyzs. $<del>100</del> <ins>$50</ins>
   <br><input type="button" value="Encroll">
 </div></a>
 <div style="clear:both;"></div>
@@ -583,7 +594,7 @@ Grandchildren: Oona Chaplin, Kiera Chaplin ·
     <option name="select" value="java">java</option>
     <option name="select" value="html">html</option>
     <option name="select" value="css">css</option>
-    <option  name="select" value="jive">jive</option>
+    <option  name="select" value="jive">vip</option>
   </select>
     </td>
 </tr>
