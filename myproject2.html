@@ -3,106 +3,177 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
+  <title>Kushal Niraula Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
   <style>
-.container{
-  width: 1400px;
-  border: 1px solid #e6e6fa;
-  margin: 0px auto;
-}
-.head{
-  width: 100%;
-  height: 600px;
-  background: url(photo/group.jpg);
-  background-size: 1400px;
-  border-bottom: 3px solid white;
-}
-.photo{
-  width: 250px;
-  height: 280px;
- position: relative;
- top: 15%;
- left: 20px;
-  background : #fdf5e6;
-  border-radius: 5px;
-  text-align: center;
-  border: 1px solid white;
-}
-.photo:hover{
-  border: 1px solid #cd5c5c;
-}
-.photo img{
-  width: 250px;
-  height: 200px;
-border-radius: 5px;
-}
-.home{
-  float: right;
-  position: sticky;
-  top: 10px;
-}
-.home ul li{
-  list-style-type: none;
-  font-size: 25px;
-  margin-right: 20px;
-  background: #00bfff;
-  padding: 10px;
-  border-bottom-right-radius: 10px;
-  border-top-left-radius: 10px;
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
 
- color: white;
+    body {
+      background: #f7f9fc;
+      color: #333;
+    }
 
-}
-.home ul li:hover{
-    background: #1e90ff;
-}
-.middle{
-  width: 1400px;
+    .container {
+      max-width: 1400px;
+      margin: auto;
+      overflow: hidden;
+      background: #ffffff;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
 
-background: #e0ffff;
+    .home {
+      text-align: right;
+      padding: 20px;
+    }
 
-}
-.middle .cv{
-  width: 1280px;
-  height: 1250px;
-  background: #e0ffff;
-  padding: 60px;
-  font-size: 15px;
-}
-.div1{
-  width: 300px;
-  height: 300px;
-  background: blue;
-}
-.footer{
-  width: 1400px;
-  height: 500px;
-  background: #696969;
-    border-top: 2px solid #e6e6fa;
-}
-#copy{
-padding-top: 70px;
-text-align: center;
+    .home ul {
+      display: inline-block;
+    }
 
-}
-.footerdiv{
-  hight: 400px;
-  width: 300px;
-  float: right;
-  margin-top: 10px;
-  margin-right: 120px;
-  text-align: center;
+    .home ul li {
+      list-style: none;
+      font-size: 20px;
+      display: inline-block;
+      background: #00bfff;
+      padding: 10px 20px;
+      color: white;
+      border-radius: 8px;
+      transition: background 0.3s;
+      margin-right: 10px;
+    }
 
-}
-.facebook{
-  color: black;
-  text-decoration: none;
-  padding: 8px;
-}
-.facebook li:hover{
-  color: #59a7ce;
-}
+    .home ul li:hover {
+      background: #1e90ff;
+    }
+
+    .head {
+      height: 600px;
+      background: url('photo/group.jpg') no-repeat center center/cover;
+      position: relative;
+    }
+
+    .photo {
+      position: absolute;
+      top: 20%;
+      left: 40px;
+      width: 250px;
+      height: 280px;
+      background: #fffdf5;
+      border-radius: 10px;
+      text-align: center;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      transition: all 0.3s ease-in-out;
+    }
+
+    .photo:hover {
+      transform: scale(1.03);
+      border: 2px solid #cd5c5c;
+    }
+
+    .photo img {
+      width: 100%;
+      height: 200px;
+      border-radius: 10px 10px 0 0;
+    }
+
+    .photo p {
+      margin: 10px 0;
+      font-weight: 600;
+    }
+
+    .middle {
+      background: linear-gradient(to right, #e0ffff, #f0f8ff);
+      padding: 50px;
+    }
+
+    .cv {
+      background: #ffffff;
+      padding: 40px;
+      border-radius: 10px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+      font-size: 16px;
+      line-height: 1.8;
+    }
+
+    .cv b {
+      display: block;
+      font-size: 20px;
+      margin-top: 25px;
+      color: #333;
+    }
+
+    .cv a {
+      color: #1e90ff;
+      text-decoration: none;
+    }
+
+    .cv a:hover {
+      text-decoration: underline;
+    }
+
+    .footer {
+      background: #2f2f2f;
+      color: #ccc;
+      padding: 50px 0;
+      text-align: center;
+    }
+
+    .footerdiv {
+      margin-top: 30px;
+    }
+
+    .footerdiv ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    .footerdiv li {
+      margin: 10px 0;
+      color: white;
+    }
+
+    .footerdiv li:hover {
+      color: #59a7ce;
+      cursor: pointer;
+    }
+
+    .facebook {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    #copy {
+      padding-top: 40px;
+      font-size: 14px;
+    }
+
+    @media screen and (max-width: 768px) {
+      .photo {
+        position: static;
+        margin: 20px auto;
+      }
+
+      .head {
+        height: 400px;
+      }
+
+      .middle {
+        padding: 20px;
+      }
+
+      .cv {
+        padding: 20px;
+      }
+
+      .container {
+        width: 100%;
+      }
+    }
   </style>
 </head>
 <body>
@@ -112,126 +183,163 @@ text-align: center;
         <a href="index.html" style="text-decoration: none;"><li>Home</li></a>
       </ul>
     </div>
+
     <div class="head">
-
-<div class="photo"><img src="photo/tom1.jpg" alt="kushal">CEO<br>
-Niraula.com
-</div>
-
-     </div>
-<div class="middle">
-
-<div class="cv">
-  <pre>
-  <b>Kushal Niraula</b>
-  My Portfolio
-URL: <a href="https://www.niraulakushal.com.np" target="_blank">https://www.niraulakushal.com.np</a>
-
-
-Bhaktapur,Nepal
-kushalniraula41@gmail.com
-9825331684
-
-<b>ABOUT ME</b>
-Hello everyone,
-My name is Kushal Niraula. I have recently completed my Bachelor’s degree in Software Engineering from Pokhara University.
-
-During my academic journey, I had the opportunity to work on two significant projects:
-
-1.  Minor project : me and my team develop a voting system for easy voting process for head boy in the school.
-  
-2.  Major Project: My team and I worked on an e-commerce website. My role focused on designing the graphical user-interface (UI) and user 
-    experience (UX), as well as conducting the testing process to ensure the product met quality standards and fulfilled all requirements.
-
-These experiences have honed my skills in UI/UX design, quality assurance, and teamwork, making me eager to apply my knowledge in a professional 
-environment.
-
-
-<b>RESEARCH INTERESTS</b>
-
-I'm a passionate and detail-oriented Software Developer with a strong interest in Software Quality Assurance. I recently completed my Bachelor’s 
-in Software Engineering from NCIT, Pokhara University, majoring in Cloud Computing and Network Security.
-
-During my QA training at Amnil Technologies and Deerwalk Training Center, I gained hands-on experience in manual testing, along with a growing 
-interest in automation testing using tools like Selenium, JUnit, and Cucumber (BDD). I also have working knowledge of API testing with Postman 
-and RestAssured, and I’m confident in writing and executing SQL queries for database validation.
-
-I’m a fast learner, a strong communicator, and an enthusiastic team player who thrives on delivering high-quality, reliable software solutions. 
-My goal is to continue growing as a QA professional while expanding my technical skills and contributing meaningfully to the tech community.
-
-💡 In my free time, I enjoy building projects like Echo – a C2C e-commerce website and testing platforms like OrangeHRM, sharpening my 
-  practical knowledge and staying updated with modern testing tools and trends.
-
-Let’s connect and create something impactful!
-
-📧 Email: kushalniraula41@gmail.com
-📱 Phone: +977-9825331684
-
-<b>EDUCATION</b>
-
-🎓 
-Bachelor of Software Engineering
-NCIT, Pokhara University
-Majors: Cloud Computing, Network Security
-
-Higher Secondary (+2) Education
-Major Subjects: Physics,Math,Computer Science
-
-Secondary Education (Grade 10)
-Major Subjects: Mathematics, Computer Science
-
-<b>LANGUAGES</b>
-
-English (native)
-Hindi (bilingual oral and written fluency)
-Nepali(native)
-</pre>
-</div>
-
-
-</div>
-    <div class="footer">
-
-      <div class="footerdiv">
-        <ul style="list-style-type:none; padding-top: 10px; color: black;">
-        <a href="#" class="facebook"><li>Give Feedback</li></a>
-        <a href="#" class="facebook"><li>Get in touch </li></a>
-        <a href="#" class="facebook"><li>Buy my product </li></a>
-        <a href="#" class="facebook"><li>Check my post</li></a>
-        <a href="#" class="facebook"><li>Message me </li></a>
-        <a href="#" class="facebook"><li>Email </li></a>
-        <a href="#" class="facebook"><li>Travel </li></a>
-        <a href="#" class="facebook"><li>Gallery </li></a>
-
-
-
+      <div class="photo">
+        <img src="photo/tom1.jpg" alt="kushal">
+        <p>CEO<br>Niraula.com</p>
       </div>
-      <div class="footerdiv">
-        <ul style="list-style-type:none; padding-top: 10px; color: black;">
-          <a href="myproject.html" class="facebook"><li>Home</li></a>
-          <a href="#" class="facebook"><li>Get Form</li></a>
-          <a href="#" class="facebook"><li>Notes</li></a>
-          <a href="#" class="facebook"><li>Profile </li></a>
-          <a href="#" class="facebook"><li>Experience </li></a>
-        <a href="#" class="facebook"><li>Certificate </li></a>
-        <a href="#" class="facebook"><li>Get Course </li></a>
-        <a href="#" class="facebook"><li>Software </li></a>
-
-
-      </div>
-      <div class="footerdiv">
-        <h1 style="border-bottom: 1px solid black;">Contact us
-        </h1>
-        <a href="https://www.facebook.com/ViPB0i/" target="_blank" class="facebook"><li>Facebook</li></a>
-    <a href="https://www.youtube.com/@Vip-HERO" target="_blank" class="facebook"><li>Youtube</li></a>
-    <a href="https://x.com/ViPB0i" target="_blank" class="facebook"><li>Twitter</li></a>
-    <a href="https://www.linkedin.com/in/kushal-niraula-368594287/" target="_blank" class="facebook"><li>LinkedIn</li></a>
-    <a href="https://www.instagram.com/kushal_vip/" target="_blank" class="facebook"><li>Instagram</li></a>
-        <ul>
-      </div>
-      <div style="clear:both"></div>
-      <p id="copy">copyrighted &copy; by Kushal Niraula</p>
     </div>
+
+    <div class="middle">
+      <div class="cv">
+        <p><b>Kushal Niraula</b><br>My Portfolio<br>
+        URL: <a href="https://www.niraulakushal.com.np" target="_blank">https://www.niraulakushal.com.np</a><br><br>
+        Bhaktapur, Nepal<br>
+        kushalniraula41@gmail.com<br>
+        9825331684</p>
+
+        <b>ABOUT ME</b>
+        <p>Hello everyone,<br>
+        My name is Kushal Niraula. I have recently completed my Bachelor’s degree in Software Engineering from Pokhara University.
+        <br><br>
+        During my academic journey, I had the opportunity to work on two significant projects:<br>
+        1. Minor project: A voting system for school elections.<br>
+        2. Major project: An e-commerce site – handled frontend part and QA testing.</p>
+
+        <b>RESEARCH INTERESTS</b>
+        <p>I'm a passionate Software Developer with strong QA skills. I trained at Amnil Technologies and Deerwalk Training Center in manual and automation testing tools like Selenium, JUnit, Postman, and RestAssured. I'm confident in SQL and API testing and love learning new tools. Currently exploring OrangeHRM and building projects like Echo – a C2C platform.</p>
+
+        <b>EDUCATION</b>
+        🎓 Bachelor of Software Engineering – NCIT, Pokhara University (Cloud Computing & Network Security)<br>
+        🎓 +2 Science (Physics, Math, Computer Science)<br>
+        🎓 Grade 10 (Mathematics, Computer Science)
+
+        <b>LANGUAGES</b>
+        English (Native)<br>
+        Hindi (Fluent)<br>
+        Nepali (Native)
+      </div>
+    </div>
+
+   
+
+<!-- Add this inside your HTML file just above </body> -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+  .footer {
+    background: linear-gradient(to right, #2c3e50, #4ca1af);
+    color: #fff;
+    padding: 40px 20px;
+    font-family: 'Segoe UI', sans-serif;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 20px;
+  }
+
+  .footerdiv {
+    flex: 1 1 200px;
+    min-width: 200px;
+  }
+
+  .footerdiv h2 {
+    border-bottom: 2px solid #fff;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+    font-size: 20px;
+    color: #ffd700;
+  }
+
+  .footerdiv ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .footerdiv ul li {
+    margin: 10px 0;
+  }
+
+  .footerdiv a {
+    text-decoration: none;
+    color: #fff;
+    transition: color 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .footerdiv a:hover {
+    color: #ffd700;
+  }
+
+  #copy {
+    text-align: center;
+    padding-top: 20px;
+    width: 100%;
+    font-size: 14px;
+    color: #eee;
+    border-top: 1px solid #ddd;
+    margin-top: 30px;
+  }
+
+  @media (max-width: 768px) {
+    .footer {
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .footerdiv {
+      align-items: center;
+    }
+  }
+</style>
+
+<div class="footer">
+  <div class="footerdiv">
+    <h2>Quick Links</h2>
+    <ul>
+      <li><a href="#"><i class="fas fa-comment-dots"></i> Give Feedback</a></li>
+      <li><a href="#"><i class="fas fa-envelope"></i> Get in Touch</a></li>
+      <li><a href="#"><i class="fas fa-shopping-cart"></i> Buy My Product</a></li>
+      <li><a href="#"><i class="fas fa-newspaper"></i> Check My Post</a></li>
+      <li><a href="#"><i class="fas fa-comment"></i> Message Me</a></li>
+      <li><a href="#"><i class="fas fa-envelope-open"></i> Email</a></li>
+      <li><a href="#"><i class="fas fa-plane"></i> Travel</a></li>
+      <li><a href="myproject3.html"><i class="fas fa-images"></i> Gallery</a></li>
+    </ul>
   </div>
+
+  <div class="footerdiv">
+    <h2>Explore</h2>
+    <ul>
+      <li><a href="#"><i class="fas fa-home"></i> Home</a></li>
+      <li><a href="#"><i class="fas fa-file-alt"></i> Get Form</a></li>
+      <li><a href="#"><i class="fas fa-book"></i> Notes</a></li>
+      <li><a href="myproject2.html"><i class="fas fa-user"></i> Profile</a></li>
+      <li><a href="#"><i class="fas fa-briefcase"></i> Experience</a></li>
+      <li><a href="#"><i class="fas fa-certificate"></i> Certificate</a></li>
+      <li><a href="#"><i class="fas fa-graduation-cap"></i> Get Course</a></li>
+      <li><a href="#"><i class="fas fa-laptop-code"></i> Software</a></li>
+    </ul>
+  </div>
+
+  <div class="footerdiv">
+    <h2>Contact Us</h2>
+    <ul>
+      <li><a href="https://www.facebook.com/ViPB0i/" target="_blank"><i class="fab fa-facebook-f"></i> Facebook</a></li>
+      <li><a href="https://www.youtube.com/@Vip-HERO" target="_blank"><i class="fab fa-youtube"></i> YouTube</a></li>
+      <li><a href="https://x.com/ViPB0i" target="_blank"><i class="fab fa-twitter"></i> Twitter</a></li>
+      <li><a href="https://www.linkedin.com/in/kushal-niraula-368594287/" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a></li>
+      <li><a href="https://www.instagram.com/kushal_vip/" target="_blank"><i class="fab fa-instagram"></i> Instagram</a></li>
+    </ul>
+  </div>
+
+  <p id="copy">Copyright &copy; by <strong>Kushal Niraula</strong> | All rights reserved.</p>
+</div>
+
+</footer>
+</div>
 </body>
 </html>
