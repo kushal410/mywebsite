@@ -562,65 +562,81 @@ Grandchildren: Oona Chaplin, Kiera Chaplin ·
 </video>
 </div>
 
-    <div class="form" id="getform">
-<div class="h1"><h1>Fill Up the Form</h1></div>
-<form action="https://formsubmit.co/kushalniraula41@gmail.com" method="POST" class="form1">
+  <div class="form" id="getform">
+  <div class="h1"><h1>Fill Up the Form</h1></div>
 
-<table>
-<tr>
-  <label for="name"><td>Name</td></label>
-  <td><input type="text" name="name" placeholder="Enter Full name" value=""></td>
-</tr>
-<tr>
-  <label for="email"><td>Email </td></label>
-  <td><input type="email" name="email" placeholder="Enter your email " value=""></td>
-</tr>
-<tr>
-  <label for="address"><td>Address </td></label>
-  <td><input type="text" name="address" placeholder="Enter your address " value=""></td>
-</tr>
-<tr>
-  <label for="zip"><td>Zip Code </td></label>
-  <td><input type="number" name="zip" placeholder="eg 45673 " value=""></td>
-</tr>
-<tr>
-  <label for="phone"><td>Phone Number </td></label>
-  <td><input type="tel" name="tel" placeholder="eg 986377179 " value="" maxlength="12"></td>
-</tr>
-<tr>
-  <label for="date"><td>Date </td></label>
-  <td><input type="date" name="date" value=""></td>
-</tr>
-<tr>
-  <label for="gender"><td>Gender </td></label>
-  <td colspan="2">Male:<input type="radio" name="gender" value=""> Female:<input type="radio" name="gender" value=""> Other:<input type="radio" name="gender" value=""></td>
-</tr>
-<tr>
-  <label for="course"><td>course </td></label>
-  <td>
-    <select>
-    <option name="select" value="0">Select the course</option>
-    <option name="select" value="java">java</option>
-    <option name="select" value="html">html</option>
-    <option name="select" value="css">css</option>
-    <option  name="select" value="jive">vip</option>
-  </select>
-    </td>
-</tr>
-<tr>
-  <label for="textarea"><td>Comments </td></label>
-  <td><textarea name="textarea" cols="42" rows="7"></textarea></td>
-</tr>
-<tr>
-  <td></td>
-  <td colspan="2"><input type="submit" name="date" value="Submit"></td>
-</tr>
-</table>
-<input type="hidden" name="_captcha" value="false">
-<input type="hidden" name="_subject" value="New Form Submission from Niraula.com!">
-<input type="hidden" name="_template" value="table">
+  <form action="https://formsubmit.co/kushalniraula41@gmail.com" method="POST" class="form1">
+    <table>
+      <tr>
+        <td><label for="name">Name</label></td>
+        <td><input type="text" id="name" name="name" placeholder="Enter Full name" required></td>
+      </tr>
+      <tr>
+        <td><label for="email">Email</label></td>
+        <td><input type="email" id="email" name="email" placeholder="Enter your email" required></td>
+      </tr>
+      <tr>
+        <td><label for="address">Address</label></td>
+        <td><input type="text" id="address" name="address" placeholder="Enter your address"></td>
+      </tr>
+      <tr>
+        <td><label for="zip">Zip Code</label></td>
+        <td><input type="number" id="zip" name="zip" placeholder="e.g., 45673"></td>
+      </tr>
+      <tr>
+        <td><label for="tel">Phone Number</label></td>
+        <td><input type="tel" id="tel" name="tel" placeholder="e.g., 986377179" maxlength="12"></td>
+      </tr>
+      <tr>
+        <td><label for="date">Date</label></td>
+        <td><input type="date" id="date" name="date"></td>
+      </tr>
+      <tr>
+        <td><label>Gender</label></td>
+        <td>
+          <div style="margin-bottom: 5px;">
+            <input type="radio" id="male" name="gender" value="Male">
+            <label for="male">Male</label>
+          </div>
+          <div style="margin-bottom: 5px;">
+            <input type="radio" id="female" name="gender" value="Female">
+            <label for="female">Female</label>
+          </div>
+          <div>
+            <input type="radio" id="other" name="gender" value="Other">
+            <label for="other">Other</label>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td><label for="course">Course</label></td>
+        <td>
+          <select id="course" name="course">
+            <option value="" disabled selected>Select the course</option>
+            <option value="Java">Java</option>
+            <option value="HTML">HTML</option>
+            <option value="CSS">CSS</option>
+            <option value="VIP">VIP</option>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td><label for="comments">Comments</label></td>
+        <td><textarea id="comments" name="comments" cols="42" rows="7"></textarea></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td><input type="submit" value="Submit"></td>
+      </tr>
+    </table>
 
-</form>
+    <!-- Hidden inputs for FormSubmit customization -->
+    <input type="hidden" name="_captcha" value="false">
+    <input type="hidden" name="_subject" value="New Form Submission from Niraula.com!">
+    <input type="hidden" name="_template" value="table">
+  </form>
+</div>
+
 <!-- Notes Content Sections -->
 <div class="gallery3" style="text-align: center;">
   <a href="#"><img src="photo/java.png" alt=""><br></a>
