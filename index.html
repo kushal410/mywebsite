@@ -1,257 +1,812 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Responsive Portfolio</title>
+  <script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const form = document.querySelector("form");
+    form.addEventListener("submit", function(e) {
+      alert("Submitting form... Thank you!");
+    });
+  });
+</script>
+
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+ 
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+.container{
+  width: 1400px;
+  border: 1px solid #e6e6fa;
+  margin: 0px auto;
+}
+.head{
+  width: 100%;
+  height: 600px;
+  background: url(himalcover.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  border-bottom: 2px solid #e6e6fa;
+}
+.head ul{
+  list-style-type: none;
+}
+.head ul a{
+text-decoration: none;
+}
+.lhead{
+  width: 400px;
+  float: left
+}
+.rhead{
+  width: 1000px;
+  float: left
+}
+.rhead ul li{
+  float: right;
+  width: 140px;
+  height: 40px;
+  text-align: center;
+}
+.rhead ul li a{
+  line-height: 40px;
+  font-size: 20px;
+  font-family: Arial;
+  color: white;
+  display: block;
+  padding-right: 10px;
+}
+.rhead ul li a:hover{
+ background: #f0f8ff;
+ opacity: .5;
+ color: #191970;
+ border-radius: 4px;
+ transition: 1s;
+ background-blend-mode: hard-light;
+}
+.rhead ul li ul li{
+  display: none;
+}
+.rhead ul li:hover ul li{
+  display: block;
+}
+.rupacha li{
+margin: -40px 30px;
+font-size: 50px;
+color: orange;
+text-decoration: none;
+width: 300px;
+line-height: 0px;
+font-family: Ink Free;
+}
+.rupacha li:hover{
+  color: white;
+  transition: 1s;
+}
+.nav{
+  margin-top: 0px;
+margin-right: 26%;
+position: sticky;
+top: 0px;
+}
+.nav,.nav ul,.nav li{
+list-style-type: none;
+float: right;
+padding-right: 20px;
+}
+.nav li{
+  background: #1e90ff;
+  opacity: .8;
+  padding: 15px;
+  font-size: 25px;
+  color: black;
+  line-height: 30px;
+}
+.class1{
+  border-top-right-radius: 28px;
+  border-bottom-right-radius: 28px;
+}
+.class2{
+  border-top-left-radius: 28px;
+  border-bottom-left-radius: 28px;
+}
+.nav ul li:hover{
+background: #faebd7;
+transition: 1s;
+color: orange;
+}
+.middle{
+  width: 1400px;
+  height: 800px;
+  background: url(himal2.jpg);
+  background-size:1400px 800px;
+    border-bottom: 2px solid #e6e6fa;
+}
+.quote{
+  width: 300px;
+  height: 300px;
+  float : left;
+  margin: 250px 40%;
+  color: white;
+}
+.quote pre{
+  text-align: center;
+  font-family: Ink Free;
+  font-size: 23px;
+}
+.quote pre:hover{
+  color: #ffa500;
+  transition: 1s;
+}
+.gallery{
+  width: 1400px;
+  height: 420px;
+  background: #c3c8d4;
+}
+.title{
+  text-align: center;
+  width: 200px;
+ font-size: 25px;
+  padding: 5px;
+  margin: 0px auto;
+  border-bottom: 2px solid #c3c8d4;
+}
+.title:hover{
+  border-bottom: 2px solid #f0fff0;
 
-    body {
-      font-family: Arial, sans-serif;
-      background: #f4f4f4;
-    }
 
-    .container {
-      max-width: 1400px;
-      margin: auto;
-      padding: 0 15px;
-    }
+}
+.gallery1{
+  width: 300px;
+  height: 300px;
+  float: right;
+  padding-top: 15px;
+  margin: 25px;
+  text-align: center;
+  color: black;
+}
+.gallery1 img{
+  width: 300px;
+  border-radius: 5px;
+}
+.gallery1 img:hover{
+  border: 1px solid #4682b4;
+  transition: 1s;
+  border-radius: 5px;
+  transform: scale(1.1);
+  transform: blur(2px);
+}
+.middle1{
+  width: 1400px;
+  height: 1800px;
+  background: #c3c8d4;
+  border-top: 2px solid #e6e6fa;
+}
+.gallery2{
+  width: 600px;
+  height: 400px;
+  float: right;
+  margin-top: 10px;
+  margin-right: 60px;
+  border-bottom: 2px solid #e6e6fa;
+}
+.gallery2 img{
+  width: 600px;
+  height: 400px;
+}
+.gallery2 img:hover{
+  border: 1px solid #4682b4;
+  border-radius: 10px;
+  transform: scale(1.1);
+  transition: 1s;
+}
+.middle3{
+  width :1400px;
+  height: 400px;
+  background: #c3c8d4;
+  border-top: 2px solid #e6e6fa;
+}
+.gallery3{
+  width: 300px;
+  height: 350px;
+  float: right;
+  margin-top: 50px;
+  margin-right: 40px;
+  text-align: center;
+  font-size: 20px;
+    color: #a0522d;
+}
+.gallery3 img{
+  width: 200px;
+  height: 200px;
 
-    .head {
-      width: 100%;
-      height: 300px;
-      background: url('himalcover.jpg') no-repeat center center/cover;
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-      padding: 20px;
-      color: white;
-    }
+}
+.gallery3 img:hover{
+  width: 220px;
+  height: 220px;
+}
+.post{
+  width: 1400px;
+  height: 343px;
+  background: #c3c8d4;
+  border-top: 2px solid #e6e6fa;
+}
+.post .left{
+  width: 39%;
+  height: 340px;
+  float: left;
+}
+.post .right{
+  width: 60%;
+  height: 300px;
+  float: left;
+  padding-top: 40px;
+}
+.left img{
+padding-top: 0px;
+  width: 100%;
+  height: 335px;
+padding-left: 8px;
+}
+.left img:hover{
+  border: 1px solid #4682b4;
+transition: 1s;
+}
+.right{
+  text-align: center;
+  font-family: Arial;
+  font-size: 17px;
+  padding-left: 10px;
+}
+.right pre{
+  text-align: left;
+}
+.video{
+  width: 1400px;
+  height: 2900px;
+  background: #c3c8d4;
+  border-top: 2px solid #e6e6fa;
 
-    .lhead img {
-      width: 80px;
-    }
+}
+.video video{
+  margin: 10px 15%;
+  border: 2px solid #c3c8d4;
+}
+.video video:hover{
+  border: 2px solid #20b2aa;
+}
+.video img{
+width: 400px;
+float: left;
+margin-top: 15px;
+}
+.form{
+  width: 1400px;
+  height: 600px;
+  background: #c3c8d4;
+  border-top: 2px solid #e6e6fa;
+}
+.form:hover{
 
-    .rhead ul {
-      list-style: none;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
+}
+.form1{
+  width: 700px;
+  height: 500px;
+  margin: 0px 30%;
+}
+.form .h1{
+  margin: 5px auto;
+  width: 300px;
+  text-align: center;
+  border-bottom: 1px solid #c3c8d4;
+}
+input[type='text'],input[type='email'],input[type='tel'],input[type='address'],input[type='number'],input[type='date']
+{
+width: 300px;
+padding: 10px;
+border-bottom: 1px solid black;
+}
+input[type='submit']
+{
+  width: 320px;
+}
+input[type='radio']{
+  width: 60px;
+}
+textarea{
+  resize: none;
+}
+input[type='text']:hover,input[type='email']:hover,input[type='tel']:hover,input[type='address']:hover,input[type='number']:hover,input[type='date']:hover,input[type='radio']:hover,input[type='submit']:hover,textarea:hover
+{
+background: #87ceeb;
+transition: 1s;
+}
+input[type='text']:focus,input[type='email']:focus,input[type='tel']:focus,input[type='address']:focus,input[type='number']:focus,input[type='date']:focus,input[type='radio']:focus,input[type='submit']:focus,textarea:focus
+{
+background: white;
+}
+.form .h1:hover{
+  border-bottom: 1px solid black;
+}
+.footer{
+  width: 1400px;
+  height: 500px;
+  background: #696969;
+border-top: 2px solid #e6e6fa;
+}
+#copy{
+padding-top: 70px;
+text-align: center;
 
-    .rhead ul li {
-      position: relative;
-    }
+}
+.footerdiv{
+  hight: 400px;
+  width: 300px;
+  float: right;
+  margin-top: 10px;
+  margin-right: 120px;
+  text-align: center;
 
-    .rhead ul li a {
-      display: block;
-      background: #1e90ff;
-      padding: 10px 15px;
-      border-radius: 4px;
-      color: white;
-      text-decoration: none;
-    }
-
-    .rhead ul li:hover ul {
-      display: block;
-    }
-
-    .rhead ul li ul {
-      display: none;
-      position: absolute;
-      top: 100%;
-      left: 0;
-      background: white;
-      min-width: 150px;
-      z-index: 1000;
-    }
-
-    .rhead ul li ul li a {
-      color: black;
-      padding: 10px;
-      display: block;
-    }
-
-    .nav ul {
-      list-style: none;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      padding: 10px;
-    }
-
-    .nav ul li {
-      background: #1e90ff;
-      margin: 5px;
-      padding: 10px 20px;
-      border-radius: 20px;
-      color: white;
-      text-align: center;
-    }
-
-    .middle,
-    .gallery,
-    .middle1,
-    .middle3,
-    .post,
-    .video,
-    .form,
-    .footer {
-      width: 100%;
-      padding: 20px;
-    }
-
-    .gallery1,
-    .gallery2,
-    .gallery3,
-    .post .left,
-    .post .right {
-      width: 100%;
-      margin-bottom: 20px;
-    }
-
-    .gallery1 img,
-    .gallery2 img,
-    .gallery3 img,
-    .post .left img {
-      width: 100%;
-      height: auto;
-    }
-
-    .form1,
-    .form .h1 {
-      width: 100%;
-      max-width: 700px;
-      margin: auto;
-    }
-
-    input,
-    select,
-    textarea {
-      width: 100%;
-      margin-bottom: 10px;
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-    }
-
-    .footer {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-around;
-      background: #2c3e50;
-      color: white;
-    }
-
-    .footerdiv {
-      flex: 1 1 250px;
-      margin: 10px;
-    }
-
-    .footerdiv ul {
-      list-style: none;
-      padding: 0;
-    }
-
-    .footerdiv a {
-      color: white;
-      text-decoration: none;
-    }
-
-    /* Responsive Styles */
-    @media (max-width: 768px) {
-      .head,
-      .rhead ul,
-      .nav ul {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-      }
-
-      .rhead ul li {
-        width: 100%;
-      }
-
-      .nav ul li {
-        width: 100%;
-      }
-
-      .form1 {
-        padding: 0 10px;
-      }
-    }
+}
+.facebook{
+  color: black;
+  text-decoration: none;
+  padding: 8px;
+}
+.facebook li:hover{
+  color: #59a7ce;
+}
   </style>
 </head>
 <body>
   <div class="container">
     <div class="head">
-      <div class="lhead"><img src="logo.png" alt="Logo" /></div>
-      <div class="rhead">
+      <div class="lhead">
+        <img src="photo/jive.png" alt="" style="width: 100px; margin-left: 130px; line-height: 0px;">
         <ul>
-          <li><a href="#">Home</a></li>
-          <li>
-            <a href="#">About</a>
-            <ul>
-              <li><a href="#">Team</a></li>
-              <li><a href="#">Company</a></li>
-            </ul>
-          </li>
-          <li><a href="#">Projects</a></li>
-          <li><a href="#">Contact</a></li>
+        <a href="https://www.niraulakushal.com.np" class="rupacha"><li >kushal.com</li></a>
         </ul>
       </div>
-    </div>
-
-    <div class="nav">
+      <div class="rhead">
       <ul>
-        <li>HTML</li>
-        <li>CSS</li>
-        <li>JavaScript</li>
-        <li>React</li>
+        <li><a href="#getform">Subscribe</a></li>
+
+        <li><a href="#">Notes</a>
+  <ul>
+    <li><a href="#java-notes">Java notes</a></li>
+    <li><a href="#html-notes">Html notes</a></li>
+    <li><a href="#css-notes">Css notes</a></li>
+    <li><a href="#oop-notes">OOP notes</a></li>
+  </ul>
+</li>
+
+        <li><a href="#">Message</a>
+  <ul>
+    <li><a href="https://m.me/ViPB0i" target="_blank">Messenger</a></li>
+    <li><a href="https://www.instagram.com/kushal_vip/" target="_blank">Instagram DM</a></li>
+    <li><a href="https://x.com/ViPB0i" target="_blank">Twitter DM</a></li>
+    <li><a href="mailto:kushalniraula41@gmail.com">Email</a></li>
+  </ul>
+</li>
+
+        <li><a href="#getform">Get Form</a></li>
+        <li><a href="#">Social Media</a>
+           <ul>
+             <a href="https://www.facebook.com/ViPB0i/" target="_blank" class="facebook"><li>Facebook</li></a>
+    <a href="https://www.youtube.com/@Vip-HERO" target="_blank" class="facebook"><li>Youtube</li></a>
+    <a href="https://x.com/ViPB0i" target="_blank" class="facebook"><li>Twitter</li></a>
+    <a href="https://www.linkedin.com/in/kushal-niraula-368594287/" target="_blank" class="facebook"><li>LinkedIn</li></a>
+    <a href="https://www.instagram.com/kushal_vip/" target="_blank" class="facebook"><li>Instagram</li></a>
+           </ul>
+        </li>
+        <li><a href="myproject2.html">Profile</a></li>
       </ul>
     </div>
+    <div style="clear:both;"></div>
+    </div>
+  <div class="nav">
+  <ul>
+    <a href="https://x.com/ViPB0i"><li class="class1">contact us</li></a>
+    <a href="https://www.ebooks.com/en-np/"><li class="class3">Ebooks</li></a>
+    <a href="https://www.linkedin.com/in/kushal-niraula-368594287/"><li class="class3">Experience</li></a>
+    <a href="myproject3.html"><li class="class3">Gallery</li></a>
+    <a href="myproject.html"><li class="class2">Home</li></a>
+    <div style="clear:both"></div>
+  </ul>
+</div>
+
 
     <div class="middle">
-      <h2>Welcome to My Portfolio</h2>
-      <p>This section contains an introduction and some text about who you are and what you do.</p>
+<div class="quote">
+  <pre>take <h1>PRIDE</h1>in how far<br>you have come. <br>have<h1>FAITH</h1>in how far<br>you can go</pre>
+</div>
+<div style="clear:both;"></div>
     </div>
-
     <div class="gallery">
-      <div class="gallery1"><img src="project1.jpg" alt="Project 1"></div>
-      <div class="gallery2"><img src="project2.jpg" alt="Project 2"></div>
-      <div class="gallery3"><img src="project3.jpg" alt="Project 3"></div>
+      <div class="title">MY GALLERY</div>
+      <a href="photo/jack.jpg"><div class="gallery1"><img src="photo/jack.jpg" alt="">Put all in one plan<br>just own the outcome. </div></a>
+    <a href="photo/wilma.jpg"><div class="gallery1"><img src="photo/wilma.jpg" alt="">Focus on one mission, just steer it well.<br> </div></a>
+      <a href="photo/elon.jpg"><div class="gallery1"><img src="photo/elon.jpg" alt="">Tt’s OK to go all in<br>if you’re in control. </div></a>
+      <a href="photo/elon2.jpg"><div class="gallery1"><img src="photo/elon2.jpg" alt="">Pour everything into one dream<br>just drive it.</div></a>
+      <div style="clear:both"></div>
     </div>
+    <div class="middle1">
+<div style="text-align: center; padding-top: 25px; font-size: 25px; width: 10px; width: 300px; margin: 0px auto;" class="title">MY ART AND PHOTOGRAPHY</div>
 
-    <div class="form">
-      <div class="h1"><h1>Contact Me</h1></div>
-      <form class="form1">
-        <input type="text" placeholder="Your Name" required />
-        <input type="email" placeholder="Your Email" required />
-        <textarea rows="5" placeholder="Your Message" required></textarea>
-        <input type="submit" value="Send Message" />
-      </form>
+<a href="photo/img6.jpg"><div class="gallery2"><img src="photo/img6.jpg" alt=""></div></a>
+<a href="photo/img7.jpg"><div class="gallery2"><img src="photo/img7.jpg" alt=""></div></a>
+<a href="photo/img8.jpg"><div class="gallery2"><img src="photo/img8.jpg" alt=""></div></a>
+<a href="photo/img9.jpg"><div class="gallery2"><img src="photo/img9.jpg" alt=""></div></a>
+<a href="photo/img10.jpg"><div class="gallery2"><img src="photo/img10.jpg" alt=""></div></a>
+<a href="photo/img1.jpg"><div class="gallery2"><img src="photo/img1.jpg" alt=""></div></a>
+<a href="photo/img2.jpg"><div class="gallery2"><img src="photo/img2.jpg" alt=""></div></a>
+<a href="photo/img5.jpg"><div class="gallery2"><img src="photo/img5.jpg" alt=""></div></a>
+<div style="clear:both;"></div>
     </div>
+    <div class="middle3">
+<a href="#"><div class="gallery3"><img src="photo/java.png" alt=""><br>
+Learn java with this course. Encroll now with 5o percent discount. That is for limited time only so hurry up guyzs. $<del>100</del> <ins>$50</ins>
+<br><input type="button" value="Encroll">
+</div></a>
+<a href="#"><div class="gallery3"><img src="photo/php.png" alt="">
+<br>
+Learn php with this course. Encroll now with 5o percent discount. That is for limited time only so hurry up guyzs. $<del>100</del> <ins>$50</ins>
+<br><input type="button" value="Encroll">
+</div></a>
+<a href="#"><div class="gallery3"><img src="photo/html.png" alt="">
+  <br>
+  Learn html with this course. Encroll now with 5o percent discount. That is for limited time only so hurry up guyzs. $<del>100</del> <ins>$50</ins>
+  <br><input type="button" value="Encroll">
+</div></a>
+<a href="#"><div class="gallery3"><img src="photo/jive.png" alt="">
+  <br>Learn VIP with this course. Encroll now with 5o percent discount. That is for limited time only so hurry up guyzs. $<del>100</del> <ins>$50</ins>
+  <br><input type="button" value="Encroll">
+</div></a>
+<div style="clear:both;"></div>
+    </div>
+    <div class="post">
+      <div class="left"><img src="photo/leo.jpg" alt="leo"></div>
+      <div class="right">
+        <pre>
+              Name          : Leonardo Dicaprio
+              Passion       : Acter
+              Movies        : Inception,Shutter island, Wolf of wall street
+            </pre>
+            Leonardo Wilhelm DiCaprio (pronounced /dɪˈkæprioʊ/, and in Italian: [diˈkaːprjo]) was born on November 11, 1974. He is an American actor, film producer, and environmentalist. He has received several awards, including one Academy Award and three Golden Globe Awards.
 
-    <div class="footer">
-      <div class="footerdiv">
-        <h3>Links</h3>
-        <ul>
-          <li><a href="#">GitHub</a></li>
-          <li><a href="#">LinkedIn</a></li>
-        </ul>
-      </div>
-      <div class="footerdiv">
-        <h3>Contact</h3>
-        <p>Email: kushalniraula41@gmail.com</p>
-        <p>Phone: 9825331684</p>
-      </div>
+            Leonardo DiCaprio began with TV commercials in the late 1980s, moved to recurring TV roles like Santa Barbara and Growing Pains, debuted in film with Critters 3 (1991), earned acclaim and an Oscar nomination for What's Eating Gilbert Grape (1993), gained recognition in The Basketball Diaries (1995) and Romeo + Juliet (1996), and rose to international fame with Titanic (1997), then the highest-grossing film ever. <a href="#" style="text-decoration: none;">read more</a>
+       <audio controls class="audio">
+           <source src="audio/Attention-(Mr-Jat.in).mp3" type="audio/mpeg">
+         </audio>
+       </div>
+      <div style="clear:both;"></div>
     </div>
+    <div class="post">
+      <div class="left"><img src="photo/cr7.jpg" alt=""></div>
+      <div class="right">
+        <pre>
+              Name          : Cristiano Ronaldo
+              Passion       : Footballer
+              Clubs         : Manchester United, Real Madrid, Juventus, Al-Nassr
+            </pre>
+         Cristiano Ronaldo (CR7), born on February 5, 1985, is a Portuguese professional footballer widely regarded as one of the greatest players of all time. Known for his speed, strength, and goal-scoring ability, he has won multiple Ballon d'Or awards and Champions League titles. Ronaldo has played for top clubs across Europe and continues to inspire millions around the world with his dedication and performance on the field. <a href="#" style="text-decoration: none;">read more</a>
+<audio controls class="audio">
+  <source src="audio/Eric_Clapton_-_Tears_In_Heaven_(Official_Video)(256k).mp3" type="audio/mpeg">
+</audio>
+       </div>
+      <div style="clear:both;"></div>
+    </div>
+    <div class="post">
+      <div class="left"><img src="photo/tom.jpg" alt=""></div>
+      <div class="right">
+        <pre>
+              Name          : Tom Cruise
+              Passion       : Acter
+              Movies        : Inception,Shutter island, Wolf of wall street
+            </pre>
+         Cruise began acting in the early 1980s and made his breakthrough with leading roles in the comedy Risky Business (1983) and the action drama Top Gun (1986). Critical acclaim came with his roles in the dramas The Color of Money (1986), Rain Man (1988), and Born on the Fourth of July (1989). For portraying Ron Kovic in the latter, he won a Golden Globe Award and received a nomination for the Academy Award for Best Actor. As a leading Hollywood star in the 1990s, Cruise starred in several commercially successful films, including the drama A Few Good Men (1992), the thriller The Firm (1993), the horror film Interview with the Vampire (1994), and the romance Jerry Maguire (1996), for which he won another Golden Globe and received his second Oscar nomination. <a href="#" style="text-decoration: none;">read more</a></div>
+      <div style="clear:both;"></div>
+    </div>
+    <div class="post">
+      <div class="left"><img src="photo/bob.jpg" alt=""></div>
+      <div class="right">
+        <pre>
+              Name          : Bob Dylan
+              Passion       : Singer,composer
+              Movies        : Inception,Shutter island, Wolf of wall street
+            </pre>
+         Bob Dylan, born Robert Allen Zimmerman in 1941 in Minnesota, is a legendary musician and cultural icon known for his influential songwriting that shaped the 1960s protest movement. His poetic lyrics and songs like Blowin’ in the Wind and The Times They Are a-Changin’ became anthems for social change. Over six decades, Dylan has reinvented his style across folk, rock, blues, and country, earning the 2016 Nobel Prize in Literature for his contribution to songwriting as an art form. Beyond music, he is also a painter and author, making him a lasting figure in global art and culture.! <a href="#" style="text-decoration: none;">read more</a>
+         <audio controls class="audio">
+           <source src="audio/LIKE_A_ROLLING_STONE_-_BOB_DYLAN(256k).mp3" type="audio/mpeg">
+         </audio>
+       </div>
+      <div style="clear:both;"></div>
+    </div>
+    <div class="post">
+      <div class="left"><img src="photo/jonny.jpg" alt=""></div>
+      <div class="right">
+        <pre>
+              Name          : Jonny Deep
+              Passion       : Acter
+              Movies        : Inception,Shutter island, Wolf of wall street
+            </pre>
+        Johnny Depp is a versatile and acclaimed American actor known for his ability to transform into a wide range of characters across film genres. Born on June 9, 1963, Depp first gained fame in the 1980s with the TV series 21 Jump Street, but he truly became a Hollywood icon through his collaborations with director Tim Burton. Depp is best known for his role as Captain Jack Sparrow in the Pirates of the Caribbean series, a character that earned him worldwide recognition and critical praise for his quirky, charismatic performance. Beyond blockbuster hits, Depp has taken on complex and unconventional roles in films like Edward Scissorhands, Fear and Loathing in Las Vegas, and Sweeney Todd, showcasing his dedication to craft and artistic risk-taking. Despite personal controversies and challenges, his impact on the film industry remains significant, admired for his distinctive style and commitment to bringing unique characters to life.! <a href="#" style="text-decoration: none;">read more</a></div>
+      <div style="clear:both;"></div>
+    </div>
+    <div class="video">
+
+  <div><img src="photo/Charlie-Chaplin-Transparent-Images-PNG.png" alt=""><p style="font-size: 18px; margin-top: 25px; text-indent: 30px;"> 
+Sir Charles Spencer Chaplin was an English comic actor, filmmaker, and composer who rose to fame in the era of silent film.
+He became a worldwide icon through his screen persona, the Tramp, and is considered one of the film industry's most important figures.
+Born: April 16, 1889, London, United Kingdom
+Died: December 25, 1977 (age 88 years), Manoir de Ban, Switzerland
+Date knighted: 1975
+Organizations founded: United Artists, Regal Cinemas, Charlie Chaplin Productions, Hollywood Athletic Club
+Production companies: United Artists, Regal Cinemas, Charlie Chaplin Productions
+Cousin: Blanche Louise
+Grandchildren: Oona Chaplin, Kiera Chaplin · 
+  </p></div>
+<video width="1000px" controls>
+  <source src="video/Charlie_Chaplin_-_The_Mirror_Maze_(The_Circus)(720p).mp4" type="video/mp4">
+</video>
+<video width="1000px" controls>
+  <source src="video/Charlie_Chaplin_Sings_Nonsense_Song_(Titine)_-_Modern_Times(480p).mp4" type="video/mp4">
+</video>
+<video width="1000px" controls>
+  <source src="video/Buster_Keaton_-_Hard_Luck_HD_(1921)_-_Full_Film(480p).mp4" type="video/mp4">
+</video>
+<video width="1000px" height="600px" controls>
+  <source src="video/Charlie_World_Fun__Buster_Keaton_Great_Running_Trails__D(360p).mp4" type="video/mp4">
+</video>
+</div>
+
+  <div class="form" id="getform">
+  <div class="h1"><h1>Fill Up the Form</h1></div>
+
+  <form action="https://formsubmit.co/kushalniraula41@gmail.com" method="POST" class="form1">
+    <table>
+      <tr>
+        <td><label for="name">Name</label></td>
+        <td><input type="text" id="name" name="name" placeholder="Enter Full name" required></td>
+      </tr>
+      <tr>
+        <td><label for="email">Email</label></td>
+        <td><input type="email" id="email" name="email" placeholder="Enter your email" required></td>
+      </tr>
+      <tr>
+        <td><label for="address">Address</label></td>
+        <td><input type="text" id="address" name="address" placeholder="Enter your address"></td>
+      </tr>
+      <tr>
+        <td><label for="zip">Zip Code</label></td>
+        <td><input type="number" id="zip" name="zip" placeholder="e.g., 45673"></td>
+      </tr>
+      <tr>
+        <td><label for="tel">Phone Number</label></td>
+        <td><input type="tel" id="tel" name="tel" placeholder="e.g., 986377179" maxlength="12"></td>
+      </tr>
+      <tr>
+        <td><label for="date">Date</label></td>
+        <td><input type="date" id="date" name="date"></td>
+      </tr>
+      <tr>
+        <td><label>Gender</label></td>
+        <td>
+          <div style="margin-bottom: 5px;">
+            <input type="radio" id="male" name="gender" value="Male">
+            <label for="male">Male</label>
+          </div>
+          <div style="margin-bottom: 5px;">
+            <input type="radio" id="female" name="gender" value="Female">
+            <label for="female">Female</label>
+          </div>
+          <div>
+            <input type="radio" id="other" name="gender" value="Other">
+            <label for="other">Other</label>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td><label for="course">Course</label></td>
+        <td>
+          <select id="course" name="course">
+            <option value="" disabled selected>Select the course</option>
+            <option value="Java">Java</option>
+            <option value="HTML">HTML</option>
+            <option value="CSS">CSS</option>
+            <option value="VIP">VIP</option>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td><label for="comments">Comments</label></td>
+        <td><textarea id="comments" name="comments" cols="42" rows="7"></textarea></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td><input type="submit" value="Submit"></td>
+      </tr>
+    </table>
+
+    <!-- Hidden inputs for FormSubmit customization -->
+    <input type="hidden" name="_captcha" value="false">
+    <input type="hidden" name="_subject" value="New Form Submission from Niraula.com!">
+    <input type="hidden" name="_template" value="table">
+  </form>
+</div>
+
+<!-- Notes Content Sections -->
+<div class="gallery3" style="text-align: center;">
+  <a href="#"><img src="photo/java.png" alt=""><br></a>
+</div>
+<div id="java-notes" style="padding: 20px; background: #f0f8ff; margin: 20px auto; width: 80%; border-radius: 8px;">
+  <h2>Java Notes</h2>
+  <p>Java is a high-level, class-based, object-oriented programming language.</p>
+  <ul>
+    <li>Java Basics: variables, data types, control flow</li>
+    <li>Classes and Objects</li>
+    <li>Inheritance and Polymorphism</li>
+
+  </ul>
+
+</div>
+
+<div class="gallery3" style="text-align: center;">
+  <a href="#"><img src="photo/html.png" alt=""><br></a>
+</div>
+<div id="html-notes" style="padding: 20px; background: #fff0f5; margin: 20px auto; width: 80%; border-radius: 8px;">
+  <h2>HTML Notes</h2>
+  <p>HTML (HyperText Markup Language) is the standard markup language for creating web pages.</p>
+  <ul>
+    <li>HTML Elements and Tags</li>
+    <li>Forms and Input Elements</li>
+    <li>Semantic HTML</li>
+  </ul>
+</div>
+
+<div class="gallery3" style="text-align: center;">
+  <a href="#"><img src="photo/css.png" alt=""><br></a>
+</div>
+<div id="css-notes" style="padding: 20px; background: #e6f7ff; margin: 20px auto; width: 80%; border-radius: 8px;">
+  <h2>CSS Notes</h2>
+  <p>CSS (Cascading Style Sheets) describes how HTML elements are to be displayed on screen.</p>
+  <ul>
+    <li>Selectors and Properties</li>
+    <li>Box Model</li>
+    <li>Flexbox and Grid Layout</li>
+  </ul>
+</div>
+
+<div id="oop-notes" style="padding: 20px; background: #f5f5dc; margin: 20px auto; width: 80%; border-radius: 8px;">
+  <h2>OOP Notes</h2>
+  <p>Object-Oriented Programming focuses on objects containing data and methods.</p>
+  <ul>
+    <li>Encapsulation</li>
+    <li>Inheritance</li>
+    <li>Polymorphism</li>
+    <li>Abstraction</li>
+  </ul>
+
+
+    </div>
+<!-- Add this inside your HTML file just above </body> -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+  .footer {
+    background: linear-gradient(to right, #2c3e50, #4ca1af);
+    color: #fff;
+    padding: 40px 20px;
+    font-family: 'Segoe UI', sans-serif;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 20px;
+  }
+
+  .footerdiv {
+    flex: 1 1 200px;
+    min-width: 200px;
+  }
+
+  .footerdiv h2 {
+    border-bottom: 2px solid #fff;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+    font-size: 20px;
+    color: #ffd700;
+  }
+
+  .footerdiv ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .footerdiv ul li {
+    margin: 10px 0;
+  }
+
+  .footerdiv a {
+    text-decoration: none;
+    color: #fff;
+    transition: color 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .footerdiv a:hover {
+    color: #ffd700;
+  }
+
+  #copy {
+    text-align: center;
+    padding-top: 20px;
+    width: 100%;
+    font-size: 14px;
+    color: #eee;
+    border-top: 1px solid #ddd;
+    margin-top: 30px;
+  }
+
+  @media (max-width: 768px) {
+    .footer {
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .footerdiv {
+      align-items: center;
+    }
+  }
+</style>
+
+<div class="footer">
+  <div class="footerdiv">
+    <h2>Quick Links</h2>
+    <ul>
+      <li><a href="#"><i class="fas fa-comment-dots"></i> Give Feedback</a></li>
+      <li><a href="#"><i class="fas fa-envelope"></i> Get in Touch</a></li>
+      <li><a href="#"><i class="fas fa-shopping-cart"></i> Buy My Product</a></li>
+      <li><a href="#"><i class="fas fa-newspaper"></i> Check My Post</a></li>
+      <li><a href="#"><i class="fas fa-comment"></i> Message Me</a></li>
+      <li><a href="#"><i class="fas fa-envelope-open"></i> Email</a></li>
+      <li><a href="#"><i class="fas fa-plane"></i> Travel</a></li>
+      <li><a href="myproject3.html"><i class="fas fa-images"></i> Gallery</a></li>
+    </ul>
   </div>
+
+  <div class="footerdiv">
+    <h2>Explore</h2>
+    <ul>
+      <li><a href="#"><i class="fas fa-home"></i> Home</a></li>
+      <li><a href="#"><i class="fas fa-file-alt"></i> Get Form</a></li>
+      <li><a href="#"><i class="fas fa-book"></i> Notes</a></li>
+      <li><a href="myproject2.html"><i class="fas fa-user"></i> Profile</a></li>
+      <li><a href="#"><i class="fas fa-briefcase"></i> Experience</a></li>
+      <li><a href="#"><i class="fas fa-certificate"></i> Certificate</a></li>
+      <li><a href="#"><i class="fas fa-graduation-cap"></i> Get Course</a></li>
+      <li><a href="#"><i class="fas fa-laptop-code"></i> Software</a></li>
+    </ul>
+  </div>
+
+  <div class="footerdiv">
+    <h2>Contact Us</h2>
+    <ul>
+      <li><a href="https://www.facebook.com/ViPB0i/" target="_blank"><i class="fab fa-facebook-f"></i> Facebook</a></li>
+      <li><a href="https://www.youtube.com/@Vip-HERO" target="_blank"><i class="fab fa-youtube"></i> YouTube</a></li>
+      <li><a href="https://x.com/ViPB0i" target="_blank"><i class="fab fa-twitter"></i> Twitter</a></li>
+      <li><a href="https://www.linkedin.com/in/kushal-niraula-368594287/" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a></li>
+      <li><a href="https://www.instagram.com/kushal_vip/" target="_blank"><i class="fab fa-instagram"></i> Instagram</a></li>
+    </ul>
+  </div>
+
+  <p id="copy">Copyright &copy; by <strong>Kushal Niraula</strong> | All rights reserved.</p>
+</div>
+
+</footer>
+</div>
 </body>
 </html>
