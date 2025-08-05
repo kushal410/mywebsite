@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-  <title>Document</title>
+  <title>Gallery with Top-Right Audio</title>
   <style>
     .container {
       width: 1400px;
@@ -44,30 +44,41 @@
     .middle {
       width: 1400px;
       background: #e0ffff;
+      position: relative; /* For absolute audio */
+    }
+
+    .audio-player {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: 250px;
+      text-align: center;
+      z-index: 10;
+      background: rgba(255, 255, 255, 0.85);
+      padding: 8px;
+      border-radius: 8px;
+      box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
     }
 
     .middle .cv {
       width: 1280px;
       background: #e0ffff;
       padding: 20px;
+      margin-right: 280px; /* Room for audio player */
     }
 
-    /* Improved hover effect CSS */
     .middle .cv img {
       width: 630px;
       float: left;
       padding: 3px;
-      border: 1px solid transparent; /* prevents jump on hover */
+      border: 1px solid #e0ffff;
       border-radius: 2px;
-      transition: border-color 0.4s ease, filter 0.4s ease, transform 0.4s ease,
-        box-shadow 0.4s ease;
     }
 
     .middle .cv img:hover {
-      border-color: #20b2aa;
-      filter: brightness(1.3) contrast(1.15);
-      box-shadow: 0 4px 15px rgba(32, 178, 170, 0.5);
-      transform: scale(1.05);
+      border: 1px solid #20b2aa;
+      filter: brightness(140%) contrast(115%);
+      transition: 1s;
     }
 
     .footer {
@@ -100,73 +111,13 @@
     .facebook li:hover {
       color: #59a7ce;
     }
-  </style>
-</head>
-<body>
-  <div class="container">
-    <div class="home">
-      <ul>
-        <a href="index.html" style="text-decoration: none;"><li>Home</li></a>
-        <a href="profile.html" style="text-decoration: none;"><li>Profile</li></a>
-        <a href="gallery.html" style="text-decoration: none;"><li>Gallery</li></a>
-        <a href="https://www.facebook.com/ViPB0i/" style="text-decoration: none;"><li>Message</li></a>
-      </ul>
-    </div>
 
-    <div class="head"></div>
-
-    <div class="middle">
-      <div class="cv">
-        <a href="photo/img9.jpg"><img src="photo/img9.jpg" alt="" /></a>
-        <a href="gallery/2.jpg"><img src="gallery/2.jpg" alt="" /></a>
-        <a href="gallery/4.jpg"><img src="gallery/4.jpg" alt="" /></a>
-        <a href="gallery/3.jpg"><img src="gallery/3.jpg" alt="" /></a>
-        <a href="gallery/5.jpg"><img src="gallery/5.jpg" alt="" /></a>
-        <a href="gallery/6.jpg"><img src="gallery/6.jpg" alt="" /></a>
-        <a href="gallery/21.jpg"><img src="gallery/21.jpg" alt="" /></a>
-        <a href="gallery/7.jpg"><img src="gallery/7.jpg" alt="" /></a>
-        <a href="gallery/20.jpg"><img src="gallery/20.jpg" alt="" /></a>
-        <a href="gallery/9.jpg"><img src="gallery/9.jpg" alt="" /></a>
-        <a href="gallery/8.jpg"><img src="gallery/8.jpg" alt="" /></a>
-        <a href="gallery/10.jpg"><img src="gallery/10.jpg" alt="" /></a>
-        <a href="gallery/11.jpg"><img src="gallery/11.jpg" alt="" /></a>
-        <a href="gallery/12.jpg"><img src="gallery/12.jpg" alt="" /></a>
-        <a href="gallery/13.jpg"><img src="gallery/13.jpg" alt="" /></a>
-        <a href="gallery/14.jpg"><img src="gallery/14.jpg" alt="" /></a>
-        <a href="gallery/16.jpg"><img src="gallery/16.jpg" alt="" /></a>
-        <a href="gallery/15.jpg"><img src="gallery/15.jpg" alt="" /></a>
-        <a href="gallery/17.jpg"><img src="gallery/17.jpg" alt="" /></a>
-        <a href="gallery/18.jpg"><img src="gallery/18.jpg" alt="" /></a>
-        <a href="gallery/19.jpg"><img src="gallery/19.jpg" alt="" /></a>
-        <a href="gallery/22.jpg"><img src="gallery/22.jpg" alt="" /></a>
-        <a href="gallery/24.jpg"><img src="gallery/24.jpg" alt="" /></a>
-        <a href="gallery/23.jpg"><img src="gallery/23.jpg" alt="" /></a>
-        <a href="photo/img1.jpg"><img src="photo/img1.jpg" alt="" /></a>
-        <a href="photo/img2.jpg"><img src="photo/img2.jpg" alt="" /></a>
-        <a href="photo/img3.jpg"><img src="photo/img3.jpg" alt="" /></a>
-        <a href="photo/img4.jpg"><img src="photo/img4.jpg" alt="" /></a>
-        <a href="photo/img5.jpg"><img src="photo/img5.jpg" alt="" /></a>
-        <a href="photo/img6.jpg"><img src="photo/img6.jpg" alt="" /></a>
-        <a href="photo/img7.jpg"><img src="photo/img7.jpg" alt="" /></a>
-        <a href="photo/img10.jpg"><img src="photo/img10.jpg" alt="" /></a>
-        <a href="photo/img8.jpg"><img src="photo/img8.jpg" alt="" /></a>
-        <div style="clear: both;"></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Footer -->
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-  />
-
-  <style>
+    /* Footer styles */
     .footer {
       background: linear-gradient(to right, #2c3e50, #4ca1af);
       color: #fff;
       padding: 40px 20px;
-      font-family: "Segoe UI", sans-serif;
+      font-family: 'Segoe UI', sans-serif;
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
@@ -227,9 +178,100 @@
       .footerdiv {
         align-items: center;
       }
+
+      .middle,
+      .container {
+        width: 100%;
+        margin: 0 auto;
+      }
+
+      .middle .cv {
+        margin-right: 0;
+        width: 100%;
+        padding: 10px;
+      }
+
+      .middle .cv img {
+        width: 100%;
+        float: none;
+      }
+
+      .audio-player {
+        position: static;
+        width: 100%;
+        margin-bottom: 15px;
+        box-shadow: none;
+        background: transparent;
+        padding: 0;
+      }
     }
   </style>
+</head>
+<body>
+  <div class="container">
+    <div class="home">
+      <ul>
+        <a href="index.html" style="text-decoration: none;"><li>Home</li></a>
+        <a href="profile.html" style="text-decoration: none;"><li>Profile</li></a>
+        <a href="gallery.html" style="text-decoration: none;"><li>Gallery</li></a>
+        <a href="https://www.facebook.com/ViPB0i/" style="text-decoration: none;"><li>Message</li></a>
+      </ul>
+    </div>
 
+    <div class="head"></div>
+
+    <div class="middle">
+      <div class="audio-player">
+        <audio controls>
+          <source src="audio/Attention-(Mr-Jat.in).mp3" type="audio/mpeg" />
+          Your browser does not support the audio element.
+        </audio>
+      </div>
+
+      <div class="cv">
+        <a href="photo/img9.jpg"><img src="photo/img9.jpg" alt="Image 9" /></a>
+        <a href="gallery/2.jpg"><img src="gallery/2.jpg" alt="Gallery 2" /></a>
+        <a href="gallery/4.jpg"><img src="gallery/4.jpg" alt="Gallery 4" /></a>
+        <a href="gallery/3.jpg"><img src="gallery/3.jpg" alt="Gallery 3" /></a>
+        <a href="gallery/5.jpg"><img src="gallery/5.jpg" alt="Gallery 5" /></a>
+        <a href="gallery/6.jpg"><img src="gallery/6.jpg" alt="Gallery 6" /></a>
+        <a href="gallery/21.jpg"><img src="gallery/21.jpg" alt="Gallery 21" /></a>
+        <a href="gallery/7.jpg"><img src="gallery/7.jpg" alt="Gallery 7" /></a>
+        <a href="gallery/20.jpg"><img src="gallery/20.jpg" alt="Gallery 20" /></a>
+        <a href="gallery/9.jpg"><img src="gallery/9.jpg" alt="Gallery 9" /></a>
+        <a href="gallery/8.jpg"><img src="gallery/8.jpg" alt="Gallery 8" /></a>
+        <a href="gallery/10.jpg"><img src="gallery/10.jpg" alt="Gallery 10" /></a>
+        <a href="gallery/11.jpg"><img src="gallery/11.jpg" alt="Gallery 11" /></a>
+        <a href="gallery/12.jpg"><img src="gallery/12.jpg" alt="Gallery 12" /></a>
+        <a href="gallery/13.jpg"><img src="gallery/13.jpg" alt="Gallery 13" /></a>
+        <a href="gallery/14.jpg"><img src="gallery/14.jpg" alt="Gallery 14" /></a>
+        <a href="gallery/16.jpg"><img src="gallery/16.jpg" alt="Gallery 16" /></a>
+        <a href="gallery/15.jpg"><img src="gallery/15.jpg" alt="Gallery 15" /></a>
+        <a href="gallery/17.jpg"><img src="gallery/17.jpg" alt="Gallery 17" /></a>
+        <a href="gallery/18.jpg"><img src="gallery/18.jpg" alt="Gallery 18" /></a>
+        <a href="gallery/19.jpg"><img src="gallery/19.jpg" alt="Gallery 19" /></a>
+        <a href="gallery/22.jpg"><img src="gallery/22.jpg" alt="Gallery 22" /></a>
+        <a href="gallery/24.jpg"><img src="gallery/24.jpg" alt="Gallery 24" /></a>
+        <a href="gallery/23.jpg"><img src="gallery/23.jpg" alt="Gallery 23" /></a>
+        <a href="photo/img1.jpg"><img src="photo/img1.jpg" alt="Image 1" /></a>
+        <a href="photo/img2.jpg"><img src="photo/img2.jpg" alt="Image 2" /></a>
+        <a href="photo/img3.jpg"><img src="photo/img3.jpg" alt="Image 3" /></a>
+        <a href="photo/img4.jpg"><img src="photo/img4.jpg" alt="Image 4" /></a>
+        <a href="photo/img5.jpg"><img src="photo/img5.jpg" alt="Image 5" /></a>
+        <a href="photo/img6.jpg"><img src="photo/img6.jpg" alt="Image 6" /></a>
+        <a href="photo/img7.jpg"><img src="photo/img7.jpg" alt="Image 7" /></a>
+        <a href="photo/img10.jpg"><img src="photo/img10.jpg" alt="Image 10" /></a>
+        <a href="photo/img8.jpg"><img src="photo/img8.jpg" alt="Image 8" /></a>
+        <div style="clear: both;"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer Section -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+  />
   <div class="footer">
     <div class="footerdiv">
       <h2>Quick Links</h2>
@@ -283,31 +325,21 @@
     <div class="footerdiv">
       <h2>Contact Us</h2>
       <ul>
-        <li>
-          <a href="https://www.facebook.com/ViPB0i/" target="_blank"
-            ><i class="fab fa-facebook-f"></i> Facebook</a
-          >
-        </li>
-        <li>
-          <a href="https://www.youtube.com/@Vip-HERO" target="_blank"
-            ><i class="fab fa-youtube"></i> YouTube</a
-          >
-        </li>
-        <li>
-          <a href="https://x.com/ViPB0i" target="_blank"
-            ><i class="fab fa-twitter"></i> Twitter</a
-          >
-        </li>
-        <li>
-          <a href="https://www.linkedin.com/in/kushal-niraula-368594287/" target="_blank"
-            ><i class="fab fa-linkedin"></i> LinkedIn</a
-          >
-        </li>
-        <li>
-          <a href="https://www.instagram.com/kushal_vip/" target="_blank"
-            ><i class="fab fa-instagram"></i> Instagram</a
-          >
-        </li>
+        <li><a href="https://www.facebook.com/ViPB0i/" target="_blank"
+          ><i class="fab fa-facebook-f"></i> Facebook</a
+        ></li>
+        <li><a href="https://www.youtube.com/@Vip-HERO" target="_blank"
+          ><i class="fab fa-youtube"></i> YouTube</a
+        ></li>
+        <li><a href="https://x.com/ViPB0i" target="_blank"
+          ><i class="fab fa-twitter"></i> Twitter</a
+        ></li>
+        <li><a href="https://www.linkedin.com/in/kushal-niraula-368594287/" target="_blank"
+          ><i class="fab fa-linkedin"></i> LinkedIn</a
+        ></li>
+        <li><a href="https://www.instagram.com/kushal_vip/" target="_blank"
+          ><i class="fab fa-instagram"></i> Instagram</a
+        ></li>
       </ul>
     </div>
 
