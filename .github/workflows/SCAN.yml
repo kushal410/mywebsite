@@ -36,6 +36,20 @@ on:
         required: false
         default: "anthropic/claude-sonnet-4-5"
         type: string
+      mode:
+        description: "Scan depth"
+        required: false
+        default: "standard"
+        type: choice
+        options:
+          - quick
+          - standard
+          - deep
+      max_budget:
+        description: "Hard spend cap for this run, in USD"
+        required: false
+        default: "10"
+        type: string
   schedule:
     # Mondays at 03:00 UTC
     - cron: "0 3 * * 1"
@@ -61,7 +75,6 @@ jobs:
       STRIX_LLM: ${{ inputs.model || 'anthropic/claude-sonnet-4-5' }}
       LLM_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
       PERPLEXITY_API_KEY: ${{ secrets.PERPLEXITY_API_KEY }}
-      RUN_NAME: strix-${{ github.run_id }}-${{ github.run_attempt }}
       # Keep the TUI from trying to draw itself on a non-interactive runner.
       TERM: dumb
       NO_COLOR: "1"
@@ -96,6 +109,10 @@ jobs:
         run: |
           strix --version || true
           docker info --format '{{.ServerVersion}}'
+          # Printed so the log always carries the exact flag surface of the
+          # installed version — check here first if an argument stops working.
+          echo "----- strix --help -----"
+          strix --help || true
 
       - name: Run Strix scan
         id: scan
@@ -104,6 +121,8 @@ jobs:
           # Passed via env, never interpolated straight into the script:
           # `${{ inputs.x }}` inside a run block is a shell-injection sink.
           INPUT_INSTRUCTION: ${{ inputs.instruction }}
+          SCAN_MODE: ${{ inputs.mode || 'standard' }}
+          MAX_BUDGET: ${{ inputs.max_budget || '10' }}
         run: |
           set -o pipefail
           INSTRUCTION="$INPUT_INSTRUCTION"
@@ -111,21 +130,30 @@ jobs:
             INSTRUCTION="Perform a security assessment of this codebase. Prioritise injection flaws, broken authentication and authorisation, insecure deserialisation, SSRF, hardcoded secrets and vulnerable dependencies. Report only findings you can justify from the code, with file and line references."
           fi
 
+          # Full sweep on every trigger, matching the push-to-main strategy.
+          # Cheaper alternative if you ever want per-push scans on all branches:
+          #   --scope-mode diff --diff-base <sha>
+          # That needs `fetch-depth: 0` on checkout so the base commit is local.
+          #
+          # -n runs without the interactive TUI. --instruction takes the prompt;
+          # it is NOT the same flag as -n.
+          # -m is used rather than --mode: only the short form is confirmed.
           strix \
+            -n \
             --target ./ \
-            --run-name "$RUN_NAME" \
-            -n "$INSTRUCTION" 2>&1 | tee strix-output.log
+            --instruction "$INSTRUCTION" \
+            -m "$SCAN_MODE" \
+            --max-budget "$MAX_BUDGET" \
+            --scope-mode full 2>&1 | tee strix-output.log
 
       - name: Collect results
         if: always()
         run: |
           mkdir -p strix-report
           cp strix-output.log strix-report/ 2>/dev/null || true
-          # Strix writes structured results under agent_runs/<run-name>/
-          if [ -d "agent_runs/$RUN_NAME" ]; then
-            cp -r "agent_runs/$RUN_NAME" strix-report/run || true
-          elif [ -d agent_runs ]; then
-            cp -r agent_runs strix-report/run || true
+          # Strix names the run itself, so copy whatever landed under agent_runs/.
+          if [ -d agent_runs ]; then
+            cp -r agent_runs strix-report/agent_runs || true
           fi
           echo "--- collected ---"
           find strix-report -maxdepth 3 -type f | head -50
@@ -150,7 +178,8 @@ jobs:
             echo "| Model | \`$STRIX_LLM\` |"
             echo "| Trigger | \`${{ github.event_name }}\` |"
             echo "| Target | \`./\` (repository source) |"
-            echo "| Run name | \`$RUN_NAME\` |"
+            echo "| Depth | \`${{ inputs.mode || 'standard' }}\` |"
+            echo "| Budget cap | \`\$${{ inputs.max_budget || '10' }}\` |"
             echo "| Scan step | \`${{ steps.scan.outcome }}\` |"
             echo ""
             echo "Full findings are in the **strix-report-${{ github.run_id }}** artifact."
