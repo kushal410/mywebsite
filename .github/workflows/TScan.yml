@@ -1,0 +1,266 @@
+# .github/workflows/strix-security-scan.yml
+#
+# Runs the Strix AI pentest agent (https://github.com/usestrix/strix) against
+# this repository's source code, or against a live URL on a manual run.
+#
+# Two files are needed:
+#   .github/workflows/strix-security-scan.yml   <- this file
+#   .github/scripts/strix_report.py             <- builds the HTML report
+#
+# Required repository secret:
+#   ANTHROPIC_API_KEY  -> Settings > Secrets and variables > Actions > New repository secret
+#
+# Optional repository secret:
+#   PERPLEXITY_API_KEY -> lets Strix do live web research on CVEs/techniques
+#
+# Notes before you enable this:
+#   * Strix is an autonomous agent. A full run can take tens of minutes and
+#     consume a non-trivial number of LLM tokens. That is why pushes to the
+#     default branch are scanned, but pushes to feature branches are not.
+#   * Strix launches its agents inside Docker sandboxes. GitHub-hosted Ubuntu
+#     runners already have Docker, so no extra setup is needed there. Self-hosted
+#     runners need a working Docker daemon.
+
+name: Strix Security Scan
+
+on:
+  # Full scan after anything lands on the default branch.
+  push:
+    branches:
+      - main
+      - master
+  workflow_dispatch:
+    inputs:
+      target:
+        description: "What to scan: ./ for this repo's code, or a full URL (https://staging.example.com) for a live app"
+        required: false
+        default: "./"
+        type: string
+      instruction:
+        description: "Optional focus for this run (e.g. 'focus on authn and the payments module')"
+        required: false
+        type: string
+      model:
+        description: "Override the LLM (LiteLLM format)"
+        required: false
+        default: "anthropic/claude-sonnet-4-5"
+        type: string
+      mode:
+        description: "Scan depth"
+        required: false
+        default: "standard"
+        type: choice
+        options:
+          - quick
+          - standard
+          - deep
+      max_budget:
+        description: "Hard spend cap for this run, in USD"
+        required: false
+        default: "10"
+        type: string
+  schedule:
+    # Mondays at 03:00 UTC
+    - cron: "0 3 * * 1"
+
+# Least privilege: the agent only needs to read the checked-out code.
+permissions:
+  contents: read
+
+# Never let two expensive agent runs overlap on the same ref.
+# Rapid merges supersede each other; manual and scheduled runs are left to finish.
+concurrency:
+  group: strix-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'push' }}
+
+jobs:
+  strix-scan:
+    name: Strix pentest scan
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+
+    env:
+      # Strix reads the model and key from the environment.
+      STRIX_LLM: ${{ inputs.model || 'anthropic/claude-sonnet-4-5' }}
+      LLM_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+      PERPLEXITY_API_KEY: ${{ secrets.PERPLEXITY_API_KEY }}
+      # Keep the TUI from trying to draw itself on a non-interactive runner.
+      TERM: dumb
+      NO_COLOR: "1"
+
+    steps:
+      - name: Fail early if the LLM key is missing
+        run: |
+          if [ -z "${LLM_API_KEY}" ]; then
+            echo "::error::Secret ANTHROPIC_API_KEY is not set. Add it under Settings > Secrets and variables > Actions."
+            exit 1
+          fi
+
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          # The agent should never get hold of a usable git token.
+          persist-credentials: false
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install Strix
+        run: |
+          python -m pip install --upgrade pip pipx
+          pipx install strix-agent
+          pipx ensurepath
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+
+      - name: Show environment
+        run: |
+          strix --version || true
+          docker info --format '{{.ServerVersion}}'
+          # Printed so the log always carries the exact flag surface of the
+          # installed version — check here first if an argument stops working.
+          echo "----- strix --help -----"
+          strix --help || true
+
+      - name: Run Strix scan
+        id: scan
+        continue-on-error: true
+        env:
+          # Passed via env, never interpolated straight into the script:
+          # `${{ inputs.x }}` inside a run block is a shell-injection sink.
+          INPUT_INSTRUCTION: ${{ inputs.instruction }}
+          SCAN_MODE: ${{ inputs.mode || 'standard' }}
+          MAX_BUDGET: ${{ inputs.max_budget || '10' }}
+          # Push and scheduled runs always scan the repo; only a manual run can
+          # aim Strix at a live URL.
+          TARGET: ${{ inputs.target || './' }}
+        run: |
+          set -o pipefail
+
+          case "$TARGET" in
+            http://*|https://*)
+              KIND="url"
+              # Full sweep flags are code-scoped, so they are omitted for URLs.
+              SCOPE_ARGS=""
+              DEFAULT_INSTRUCTION="Perform a black-box web application security assessment of this target. Probe for injection, broken access control, authentication and session weaknesses, SSRF, IDOR and misconfiguration. Do not attempt destructive actions, denial of service, or data exfiltration."
+              ;;
+            *)
+              KIND="path"
+              SCOPE_ARGS="--scope-mode full"
+              DEFAULT_INSTRUCTION="Perform a security assessment of this codebase. Prioritise injection flaws, broken authentication and authorisation, insecure deserialisation, SSRF, hardcoded secrets and vulnerable dependencies. Report only findings you can justify from the code, with file and line references."
+              ;;
+          esac
+
+          INSTRUCTION="$INPUT_INSTRUCTION"
+          if [ -z "$INSTRUCTION" ]; then
+            INSTRUCTION="$DEFAULT_INSTRUCTION"
+          fi
+
+          if [ "$KIND" = "url" ]; then
+            echo "::warning::Scanning live URL $TARGET. Only ever point this at a host you own or are explicitly authorised to test."
+          fi
+
+          echo "Target: $TARGET ($KIND)"
+
+          # -n runs without the interactive TUI. --instruction takes the prompt;
+          # it is NOT the same flag as -n.
+          # -m is used rather than --mode: only the short form is confirmed.
+          #
+          # Cheaper alternative for per-push scans on all branches:
+          #   --scope-mode diff --diff-base <sha>
+          # That needs `fetch-depth: 0` on checkout so the base commit is local.
+          strix \
+            -n \
+            --target "$TARGET" \
+            --instruction "$INSTRUCTION" \
+            -m "$SCAN_MODE" \
+            --max-budget "$MAX_BUDGET" \
+            $SCOPE_ARGS 2>&1 | tee strix-output.log
+
+      - name: Collect results
+        if: always()
+        run: |
+          mkdir -p strix-report
+          cp strix-output.log strix-report/ 2>/dev/null || true
+          # Strix names the run itself, so copy whatever landed under agent_runs/.
+          if [ -d agent_runs ]; then
+            cp -r agent_runs strix-report/agent_runs || true
+          fi
+          echo "--- collected ---"
+          find strix-report -maxdepth 3 -type f | head -50
+
+      - name: Build HTML report
+        id: report
+        if: always()
+        env:
+          TARGET: ${{ inputs.target || './' }}
+        run: |
+          set +e
+          python3 .github/scripts/strix_report.py \
+            --run-dir agent_runs \
+            --log strix-output.log \
+            --out strix-report/report.html \
+            --summary-out strix-report/summary.json \
+            --repo "${{ github.repository }}" \
+            --commit "${{ github.sha }}" \
+            --target "$TARGET" \
+            --model "$STRIX_LLM" \
+            --depth "${{ inputs.mode || 'standard' }}" \
+            --run-url "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          echo "gate=$?" >> "$GITHUB_OUTPUT"
+
+      - name: Upload report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: strix-report-${{ github.run_id }}
+          path: strix-report/
+          retention-days: 30
+          if-no-files-found: warn
+
+      - name: Job summary
+        if: always()
+        run: |
+          {
+            echo "## Strix security scan"
+            echo ""
+            echo "| | |"
+            echo "|---|---|"
+            echo "| Model | \`$STRIX_LLM\` |"
+            echo "| Trigger | \`${{ github.event_name }}\` |"
+            echo "| Target | \`${{ inputs.target || './' }}\` |"
+            echo "| Depth | \`${{ inputs.mode || 'standard' }}\` |"
+            echo "| Budget cap | \`\$${{ inputs.max_budget || '10' }}\` |"
+            echo "| Scan step | \`${{ steps.scan.outcome }}\` |"
+            echo ""
+            if [ -f strix-report/summary.json ]; then
+              echo "Findings tally: \`$(cat strix-report/summary.json)\`"
+              echo ""
+            fi
+            echo "Download the **strix-report-${{ github.run_id }}** artifact below and open"
+            echo "\`report.html\` in a browser for the formatted report."
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Gate on high-severity findings
+        if: always()
+        run: |
+          # A missing report means the generator itself broke. Fail loudly rather
+          # than letting a non-zero-but-not-2 exit code look like a clean pass.
+          if [ ! -f strix-report/report.html ]; then
+            echo "::error::No HTML report was produced (generator exit ${{ steps.report.outputs.gate }}). See the 'Build HTML report' step."
+            exit 1
+          fi
+
+          # The report script exits 2 when it parsed critical or high findings.
+          if [ "${{ steps.report.outputs.gate }}" = "2" ]; then
+            echo "::error::Strix reported critical or high severity findings. Open report.html in the artifact."
+            exit 1
+          fi
+
+          if [ "${{ steps.scan.outcome }}" != "success" ]; then
+            echo "::error::The Strix scan step did not complete successfully."
+            exit 1
+          fi
+
+          echo "No critical or high severity findings were parsed from this run."
