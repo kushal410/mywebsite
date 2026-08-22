@@ -1,0 +1,168 @@
+# .github/workflows/strix-security-scan.yml
+#
+# Runs the Strix AI pentest agent (https://github.com/usestrix/strix) against
+# this repository's source code.
+#
+# Required repository secret:
+#   ANTHROPIC_API_KEY  -> Settings > Secrets and variables > Actions > New repository secret
+#
+# Optional repository secret:
+#   PERPLEXITY_API_KEY -> lets Strix do live web research on CVEs/techniques
+#
+# Notes before you enable this:
+#   * Strix is an autonomous agent. A full run can take tens of minutes and
+#     consume a non-trivial number of LLM tokens. That is why this workflow is
+#     manual + weekly rather than per-push.
+#   * Strix launches its agents inside Docker sandboxes. GitHub-hosted Ubuntu
+#     runners already have Docker, so no extra setup is needed there. Self-hosted
+#     runners need a working Docker daemon.
+
+name: Strix Security Scan
+
+on:
+  workflow_dispatch:
+    inputs:
+      instruction:
+        description: "Optional focus for this run (e.g. 'focus on authn and the payments module')"
+        required: false
+        type: string
+      model:
+        description: "Override the LLM (LiteLLM format)"
+        required: false
+        default: "anthropic/claude-sonnet-4-5"
+        type: string
+  schedule:
+    # Mondays at 03:00 UTC
+    - cron: "0 3 * * 1"
+
+# Least privilege: the agent only needs to read the checked-out code.
+permissions:
+  contents: read
+
+# Never let two expensive agent runs overlap on the same ref.
+concurrency:
+  group: strix-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  strix-scan:
+    name: Strix pentest scan
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+
+    env:
+      # Strix reads the model and key from the environment.
+      STRIX_LLM: ${{ inputs.model || 'anthropic/claude-sonnet-4-5' }}
+      LLM_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+      PERPLEXITY_API_KEY: ${{ secrets.PERPLEXITY_API_KEY }}
+      RUN_NAME: strix-${{ github.run_id }}-${{ github.run_attempt }}
+      # Keep the TUI from trying to draw itself on a non-interactive runner.
+      TERM: dumb
+      NO_COLOR: "1"
+
+    steps:
+      - name: Fail early if the LLM key is missing
+        run: |
+          if [ -z "${LLM_API_KEY}" ]; then
+            echo "::error::Secret ANTHROPIC_API_KEY is not set. Add it under Settings > Secrets and variables > Actions."
+            exit 1
+          fi
+
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          # The agent should never get hold of a usable git token.
+          persist-credentials: false
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install Strix
+        run: |
+          python -m pip install --upgrade pip pipx
+          pipx install strix-agent
+          pipx ensurepath
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+
+      - name: Show environment
+        run: |
+          strix --version || true
+          docker info --format '{{.ServerVersion}}'
+
+      - name: Run Strix scan
+        id: scan
+        continue-on-error: true
+        env:
+          # Passed via env, never interpolated straight into the script:
+          # `${{ inputs.x }}` inside a run block is a shell-injection sink.
+          INPUT_INSTRUCTION: ${{ inputs.instruction }}
+        run: |
+          set -o pipefail
+          INSTRUCTION="$INPUT_INSTRUCTION"
+          if [ -z "$INSTRUCTION" ]; then
+            INSTRUCTION="Perform a security assessment of this codebase. Prioritise injection flaws, broken authentication and authorisation, insecure deserialisation, SSRF, hardcoded secrets and vulnerable dependencies. Report only findings you can justify from the code, with file and line references."
+          fi
+
+          strix \
+            --target ./ \
+            --run-name "$RUN_NAME" \
+            -n "$INSTRUCTION" 2>&1 | tee strix-output.log
+
+      - name: Collect results
+        if: always()
+        run: |
+          mkdir -p strix-report
+          cp strix-output.log strix-report/ 2>/dev/null || true
+          # Strix writes structured results under agent_runs/<run-name>/
+          if [ -d "agent_runs/$RUN_NAME" ]; then
+            cp -r "agent_runs/$RUN_NAME" strix-report/run || true
+          elif [ -d agent_runs ]; then
+            cp -r agent_runs strix-report/run || true
+          fi
+          echo "--- collected ---"
+          find strix-report -maxdepth 3 -type f | head -50
+
+      - name: Upload report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: strix-report-${{ github.run_id }}
+          path: strix-report/
+          retention-days: 30
+          if-no-files-found: warn
+
+      - name: Job summary
+        if: always()
+        run: |
+          {
+            echo "## Strix security scan"
+            echo ""
+            echo "| | |"
+            echo "|---|---|"
+            echo "| Model | \`$STRIX_LLM\` |"
+            echo "| Target | \`./\` (repository source) |"
+            echo "| Run name | \`$RUN_NAME\` |"
+            echo "| Scan step | \`${{ steps.scan.outcome }}\` |"
+            echo ""
+            echo "Full findings are in the **strix-report-${{ github.run_id }}** artifact."
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Gate on high-severity findings
+        if: always()
+        run: |
+          # Best-effort gate: Strix's report format can change between releases,
+          # so this greps rather than parsing a fixed schema. Tighten it once you
+          # have seen a real report from your repo.
+          if grep -RniE '"severity"[[:space:]]*:[[:space:]]*"(critical|high)"' strix-report/ >/dev/null 2>&1; then
+            echo "::error::Strix reported critical or high severity findings. See the uploaded artifact."
+            exit 1
+          fi
+
+          if [ "${{ steps.scan.outcome }}" != "success" ]; then
+            echo "::error::The Strix scan step did not complete successfully."
+            exit 1
+          fi
+
+          echo "No critical or high severity findings detected."
