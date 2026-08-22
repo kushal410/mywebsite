@@ -11,8 +11,8 @@
 #
 # Notes before you enable this:
 #   * Strix is an autonomous agent. A full run can take tens of minutes and
-#     consume a non-trivial number of LLM tokens. That is why this workflow is
-#     manual + weekly rather than per-push.
+#     consume a non-trivial number of LLM tokens. That is why pushes to the
+#     default branch are scanned, but pushes to feature branches are not.
 #   * Strix launches its agents inside Docker sandboxes. GitHub-hosted Ubuntu
 #     runners already have Docker, so no extra setup is needed there. Self-hosted
 #     runners need a working Docker daemon.
@@ -20,6 +20,11 @@
 name: Strix Security Scan
 
 on:
+  # Full scan after anything lands on the default branch.
+  push:
+    branches:
+      - main
+      - master
   workflow_dispatch:
     inputs:
       instruction:
@@ -40,9 +45,10 @@ permissions:
   contents: read
 
 # Never let two expensive agent runs overlap on the same ref.
+# Rapid merges supersede each other; manual and scheduled runs are left to finish.
 concurrency:
   group: strix-${{ github.ref }}
-  cancel-in-progress: false
+  cancel-in-progress: ${{ github.event_name == 'push' }}
 
 jobs:
   strix-scan:
@@ -142,6 +148,7 @@ jobs:
             echo "| | |"
             echo "|---|---|"
             echo "| Model | \`$STRIX_LLM\` |"
+            echo "| Trigger | \`${{ github.event_name }}\` |"
             echo "| Target | \`./\` (repository source) |"
             echo "| Run name | \`$RUN_NAME\` |"
             echo "| Scan step | \`${{ steps.scan.outcome }}\` |"
